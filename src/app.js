@@ -11,7 +11,7 @@ import Cart from './componentes/cart';
 import {firestore} from './firebase';
 const App = function(){
 
-    const [productos, setProductos] = useState([])
+    const [fireProductos, setFireProductos] = useState([])
 
     useEffect(() =>{
         
@@ -20,19 +20,11 @@ const App = function(){
         const query = collection.get()
 
         query.then((resultado)=>{
-            const productos_array = resultado.docs
-            productos_array.forEach(producto=>{
-                const producto_final = {
-                    id : producto.id,
-                    ...producto.data()
-                }
-                setProductos([...productos,producto_final])
-                console.log(producto_final)
-            })
+            setFireProductos(resultado.docs.map(producto => ({id: producto.id, ...producto.data()})))
         }).catch(()=>{
             console.log("Fallo")
         })
-    },[])
+    },[fireProductos])
 
     return(
         <>
@@ -43,10 +35,10 @@ const App = function(){
                         <Route exact path="/">
                             <Carusel/>
                             <BarraHome/>
-                            <ListContainer/>
+                            <ListContainer products={fireProductos}/>
                         </Route>
                         <Route exact path="/category/:id">
-                            <ListContainer/>
+                            <ListContainer products={fireProductos}/>
                         </Route>
                         <Route exact path="/item/:id">
                             <ItemDetailContainer/>

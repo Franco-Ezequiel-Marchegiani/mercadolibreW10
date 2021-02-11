@@ -5,8 +5,8 @@ import { useParams } from 'react-router-dom';
 import '../estilos/itemList.css';
 //import firebase from '../firebase';
 
-function ItemList({productos}){
-    const [ items, setItems ] = useState([])
+function ItemList({products}){
+    //const [ items, setItems ] = useState([])
 
     /* const { id } = useParams()
 
@@ -36,11 +36,11 @@ function ItemList({productos}){
                     </h1>                      
             </div>
                 <div className="divContainerCompras">
-                {productos && productos.map( producto => <Item 
-                id={producto.id}
-                title={producto.title}
-                precio={producto.precio}
-                imagen={producto.imagen} />)
+                {products && products.map( products => <Item 
+                id={products.id}
+                title={products.title}
+                precio={products.precio}
+                imagen={products.imagen} />)
                 }
                 </div>    
         </section>
